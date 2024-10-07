@@ -1,0 +1,20 @@
+{
+    "name": "tfc/proyecto_tfc",
+    "description": "TFC",
+    "type": "project",
+    "require": {
+        "eftec/bladeone": "4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "eftec\\": "vendor/eftec/",
+            "App\\": ["modelo/", "DAO/", "BD/"]
+        }
+    },
+    "authors": [
+        {
+            "name": "HENRY Y STEPHANIA",
+            "email": "stephania.vasquez@educa.madrid.org"
+        }
+    ]
+}
