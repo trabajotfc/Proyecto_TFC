@@ -1,0 +1,82 @@
+DROP DATABASE IF EXISTS bdproyectotfc; 
+
+create database bdproyectotfc DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+use bdproyectotfc;
+
+create table  tbPerfil(
+    idPerfil int auto_increment primary key not null,
+    Descripcion varchar(300) null    
+ );
+
+
+create table  tbUsuario(
+    idUsuario int auto_increment primary key not null,
+    Alias varchar(300) null,
+    Nombres varchar(300) null,
+    Apellidos varchar(300) null,
+    Direccion varchar(300) null,
+    Correo varchar(300) null,
+    idPerfil int ,
+    constraint fkPerfilUsuario foreign key(idPerfil) references tbPerfil(idPerfil) on update cascade on delete cascade 
+);
+
+create table  tbAnuncio(
+    idAnuncio int auto_increment primary key,
+    Descripcion varchar(2000) null,
+    Fecha datetime  null,
+    idUsuario int not null,
+    constraint fk_Anuncio_Usuairo foreign key(idUsuario) references tbUsuario(idUsuario) on update cascade on delete cascade 
+);
+
+ 
+ 
+ create table  tbCompra(
+    idCompra int auto_increment primary key,
+    Descripcion varchar(2000) null,
+    Fecha datetime  null,
+    idUsuario int not null,
+    constraint fk_Compra_Usuario foreign key(idUsuario) references tbUsuario(idUsuario) on update cascade on delete cascade 
+);
+
+
+create table  tbTipoVenta(
+    idTipoVenta int auto_increment primary key not null,
+    Descripcion varchar(600) null
+ );
+
+create table  tbCategoria(
+    idCategoria int auto_increment primary key not null,
+    Descripcion varchar(600) null
+ );
+
+create table  tbArticulo(
+    idArticulo int auto_increment primary key not null,
+    Titulo varchar(2000) null,
+    Descripcion varchar(2000) null,
+    Precio float  null,
+    idTipoVenta int not null,
+    idCategoria int not null,
+        constraint fk_ArticuloVenta foreign key(idTipoVenta) references tbTipoVenta(idTipoVenta) on update cascade on delete cascade, 
+        constraint fk_Articulo_Categoria foreign key(idCategoria) references tbCategoria(idCategoria) on update cascade on delete cascade 
+  );
+
+
+
+create table  tbAnuncioArticulo(
+    idAnuncio int not null,
+    idArticulo int not null,
+    Cantidad int,
+        constraint fk_AnuncioArticulo foreign key(idAnuncio) references tbAnuncio(idAnuncio) on update cascade on delete cascade, 
+        constraint fk_ArticuloAnuncio foreign key(idArticulo) references tbArticulo(idArticulo) on update cascade on delete cascade 
+  );
+
+create table  tbCompraArticulo(
+    idCompra int not null,
+    idArticulo int not null,
+    Cantidad int,
+        constraint fk_CompraArticulo foreign key(idCompra) references tbCompra(idCompra) on update cascade on delete cascade, 
+        constraint fk_ArticuloCompra foreign key(idArticulo) references tbArticulo(idArticulo) on update cascade on delete cascade 
+  );
+
+
