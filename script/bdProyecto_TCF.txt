@@ -70,7 +70,7 @@ create table  tbAnuncioArticulo(
         constraint fk_AnuncioArticulo foreign key(idAnuncio) references tbAnuncio(idAnuncio) on update cascade on delete cascade, 
         constraint fk_ArticuloAnuncio foreign key(idArticulo) references tbArticulo(idArticulo) on update cascade on delete cascade 
   );
-
+ 
 create table  tbCompraArticulo(
     idCompra int not null,
     idArticulo int not null,
@@ -80,3 +80,16 @@ create table  tbCompraArticulo(
   );
 
 
+
+INSERT INTO tbperfil (Descripcion) VALUES ('Normal');
+INSERT INTO tbperfil (Descripcion) VALUES ('Super Usuario');
+
+INSERT INTO tbtipoventa(Descripcion) VALUES ('Presencial');
+INSERT INTO tbtipoventa(Descripcion) VALUES ('Distancia');
+ 
+INSERT INTO tbcategoria (Descripcion) VALUES ('Informática');
+INSERT INTO tbcategoria (Descripcion) VALUES ('Telefonia');
+INSERT INTO tbcategoria (Descripcion) VALUES ('Ropa');
+INSERT INTO tbcategoria (Descripcion) VALUES ('Deporte');
+INSERT INTO tbcategoria (Descripcion) VALUES ('Coches');
+INSERT INTO tbcategoria (Descripcion) VALUES ('Moto');
