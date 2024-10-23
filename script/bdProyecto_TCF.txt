@@ -44,6 +44,11 @@ create table  tbTipoVenta(
     idTipoVenta int auto_increment primary key not null,
     Descripcion varchar(600) null
  );
+ 
+ create table  tbEstado(
+    idEstado int auto_increment primary key not null,
+    Descripcion varchar(600) null
+ );
 
 create table  tbCategoria(
     idCategoria int auto_increment primary key not null,
@@ -57,8 +62,10 @@ create table  tbArticulo(
     Precio float  null,
     idTipoVenta int not null,
     idCategoria int not null,
+    idEstado int not null,
         constraint fk_ArticuloVenta foreign key(idTipoVenta) references tbTipoVenta(idTipoVenta) on update cascade on delete cascade, 
-        constraint fk_Articulo_Categoria foreign key(idCategoria) references tbCategoria(idCategoria) on update cascade on delete cascade 
+        constraint fk_Articulo_Categoria foreign key(idCategoria) references tbCategoria(idCategoria) on update cascade on delete cascade ,
+        constraint fk_Articulo_Estado foreign key(idEstado) references tbEstado(idEstado) on update cascade on delete cascade 
   );
 
 
@@ -93,3 +100,12 @@ INSERT INTO tbcategoria (Descripcion) VALUES ('Ropa');
 INSERT INTO tbcategoria (Descripcion) VALUES ('Deporte');
 INSERT INTO tbcategoria (Descripcion) VALUES ('Coches');
 INSERT INTO tbcategoria (Descripcion) VALUES ('Moto');
+
+
+INSERT INTO tbestado (Descripcion) VALUES ('Prácticamente nuevo');
+INSERT INTO tbestado (Descripcion) VALUES ('En buen estado');
+INSERT INTO tbestado (Descripcion) VALUES ('Aceptable');
+INSERT INTO tbestado (Descripcion) VALUES ('Mejorable');
+INSERT INTO tbestado (Descripcion) VALUES ('Poco uso');
+
+
