@@ -68,7 +68,12 @@ create table  tbArticulo(
         constraint fk_Articulo_Estado foreign key(idEstado) references tbEstado(idEstado) on update cascade on delete cascade 
   );
 
-
+create table  tbFotosArticulo(
+    idArticulo int,
+    Descripcion varchar(1000) null
+ );
+ 
+ 
 
 create table  tbAnuncioArticulo(
     idAnuncio int not null,
@@ -107,5 +112,6 @@ INSERT INTO tbestado (Descripcion) VALUES ('En buen estado');
 INSERT INTO tbestado (Descripcion) VALUES ('Aceptable');
 INSERT INTO tbestado (Descripcion) VALUES ('Mejorable');
 INSERT INTO tbestado (Descripcion) VALUES ('Poco uso');
+
 
 
