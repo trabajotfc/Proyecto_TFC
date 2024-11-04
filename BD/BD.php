@@ -7,8 +7,9 @@ class BD
 {
     protected static $bd = null;
     const DB_HOST = '127.0.0.1';
-    const DB_PORT = '3306';
-    const DB_DATABASE = 'proyecto';
+    const DB_PORT = '3306';    
+    //const DB_DATABASE = 'proyecto';   
+    const DB_DATABASE = 'bdproyectotfc';    
     const DB_USERNAME = 'root';
     const DB_PASSWORD = '';
     
