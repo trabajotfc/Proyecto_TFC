@@ -54,15 +54,16 @@ create table  tbCategoria(
     Descripcion varchar(600) null
  );
 
+
 create table  tbArticulo(
-    idArticulo int auto_increment primary key not null,
-    Titulo varchar(2000) null,
-    Descripcion varchar(5000) null,
+    idArticulo int  primary key not null,
+    Titulo varchar(65535) null,
+    Descripcion varchar(65535) null,
     Precio float  null,
     idTipoVenta int not null,
     idCategoria int not null,
     idEstado int not null,
-	Ubicacion varchar(5000) null,
+	Ubicacion varchar(65535) null,
         constraint fk_ArticuloVenta foreign key(idTipoVenta) references tbTipoVenta(idTipoVenta) on update cascade on delete cascade, 
         constraint fk_Articulo_Categoria foreign key(idCategoria) references tbCategoria(idCategoria) on update cascade on delete cascade ,
         constraint fk_Articulo_Estado foreign key(idEstado) references tbEstado(idEstado) on update cascade on delete cascade 
