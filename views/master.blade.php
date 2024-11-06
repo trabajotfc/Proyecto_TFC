@@ -33,7 +33,8 @@
         <div class="float float-end d-inline-flex m-3">
             <i class="fas fa-user mr-3 fa-2x"></i>
             <input type="text" size='10px' value='' class="form-control mr-2 bg-transparent text-white" disabled>
-            <a href='index.php?logout' class='btn btn-danger mr-2'>Salir</a>
+<!--            <a href='index.php?logout' class='btn btn-danger mr-2'>Menu</a>-->
+            <a href='menu.php' class='btn btn-danger mr-2'>Menu</a>
         </div>
         <br><br>
         @show 

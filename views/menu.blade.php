@@ -35,7 +35,7 @@
         <span class="input-group-text" style="margin-top:8px ;height:40px">
         <i class="fas fa-eye"></i>
         </span>   
-        <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulos" id="btnpublicar" value="Ver Articulos">
+        <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulos" id="btnVerArticulos" value="Ver Articulos">
     </div>
 </div>
 
