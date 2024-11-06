@@ -22,10 +22,12 @@ create table  tbUsuario(
 );
 
 create table  tbAnuncio(
-    idAnuncio int auto_increment primary key,    
-    Fecha datetime  null,
-    idUsuario int not null,
-    constraint fk_Anuncio_Usuairo foreign key(idUsuario) references tbUsuario(idUsuario) on update cascade on delete cascade 
+    idAnuncio int  primary key,        
+    idUsuario int not null	
+	/* 
+ ,constraint fk_Anuncio_Usuairo foreign key(idUsuario) references tbUsuario(idUsuario) on update cascade on delete cascade 
+	*/ 
+	
 );
 
  
@@ -64,6 +66,7 @@ create table  tbArticulo(
     idCategoria int not null,
     idEstado int not null,
 	Ubicacion varchar(65535) null,
+	Fecha datetime  null,
         constraint fk_ArticuloVenta foreign key(idTipoVenta) references tbTipoVenta(idTipoVenta) on update cascade on delete cascade, 
         constraint fk_Articulo_Categoria foreign key(idCategoria) references tbCategoria(idCategoria) on update cascade on delete cascade ,
         constraint fk_Articulo_Estado foreign key(idEstado) references tbEstado(idEstado) on update cascade on delete cascade 
