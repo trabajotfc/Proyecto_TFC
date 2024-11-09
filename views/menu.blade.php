@@ -24,20 +24,45 @@
 
 
 <form name="formMenu" id="formArticulo" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
- 
-    <div class="d-flex justify-content-left col-md-12">    
-    <div class="input-group mt-2">    
-        <span class="input-group-text" style="margin-top:8px ;height:40px"> <i class="fas fa-upload" ></i></span>   
-        <input type="submit" class="btn btn-warning mt-2" name="btnpublicar" id="btnpublicar" value="Publicar Anuncio">
-    </div>
 
-        <div class="input-group mt-2">    
-        <span class="input-group-text" style="margin-top:8px ;height:40px">
-        <i class="fas fa-eye"></i>
-        </span>   
-        <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulos" id="btnVerArticulos" value="Ver Articulos">
-    </div>
-</div>
+    <fieldset style="border-width: 2px">
+        <legend>Ventas Publicación de anuncio y articulo</legend>
+
+        <div class="d-flex justify-content-left col-md-12">    
+            <div class="input-group mt-2">    
+                <span class="input-group-text" style="margin-top:8px ;height:40px"> <i class="fas fa-upload" ></i></span>   
+                <input type="submit" class="btn btn-warning mt-2" name="btnpublicar" id="btnpublicar" value="Publicar Anuncio">
+            </div>
+
+            <div class="input-group mt-2">    
+                <span class="input-group-text" style="margin-top:8px ;height:40px">
+                    <i class="fas fa-eye"></i>
+                </span>   
+                <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulos" id="btnVerArticulos" value="Ver mis Publicaciones">
+            </div>            
+            
+        </div>
+    </fieldset>
+    
+
+    <fieldset >
+        <legend style="border-width: 2px;margin-top: 15px">Compras listado de artículos</legend>
+        <div class="d-flex justify-content-left col-md-12 mt-2">  
+            
+            
+            <div class="input-group mt-2">    
+                <span class="input-group-text" style="margin-top:8px ;height:40px">
+                    <i class="fas fa-eye"></i>
+                </span>   
+                <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulosCompra" id="btnVerArticulosCompra" value="Ver Artículos">
+            </div>            
+            
+        </div>
+    </fieldset>
+
+
+
+
 
 </form>
 @endsection
