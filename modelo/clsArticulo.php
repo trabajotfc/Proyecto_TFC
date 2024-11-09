@@ -113,4 +113,24 @@ class clsArticulo {
         return $ListarCategoria;
     }
 
+    
+        function misArticulosPublicados($idUsuario) {
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+        
+        $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
+		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
+                                WHERE IDARTICULO IN (SELECT idArticulo 
+                     	FROM tbanuncioarticulo WHERE idAnuncio
+                     IN (SELECT IDANUNCIO FROM tbanuncio WHERE IDUSUARIO=:IDUSUARIO)) ";
+        
+        $sth = $this->bd->prepare($sql);
+        $sth->execute([':IDUSUARIO' => $idUsuario]);
+        $Listado = $sth->fetchAll(PDO::FETCH_OBJ);
+        $sth = null;
+
+        return $Listado;
+        
+    }
+    
+    
 }
