@@ -2,7 +2,12 @@
 
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require "../vendor/autoload.php";
+
+
 
 use eftec\bladeone\BladeOne;
 use App\BD;
@@ -279,6 +284,8 @@ if (!empty($_POST)) {//INICIO  AJAX
         //escribe sobre el fichero
         file_put_contents($logFile, $data, FILE_APPEND);
 
+      //  EnviarCorreo();
+        
         //si el fichero existe, lee el contenido 
         if (file_exists($logFile)) {
             $readFichero = file_get_contents($logFile);
@@ -508,4 +515,38 @@ function MostrarImagenes() {
     }
 
     $_SESSION['htmlImagenes'] = $htmlImagenes;
+}
+
+
+function EnviarCorreo(){
+    
+
+//require 'vendor/autoload.php';
+
+$mail = new PHPMailer(true);
+
+try {
+    // Configuración del servidor SMTP
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.example.com';  // Servidor SMTP
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'usuario@example.com'; // Usuario SMTP
+    $mail->Password   = 'contraseña';         // Contraseña SMTP
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Cifrado SSL/TLS
+    $mail->Port       = 465;                  // Puerto para SSL
+
+    // Configuración del correo
+    $mail->setFrom('proyectotrabajotfc@gmail.com', 'Nombre Remitente');
+    $mail->addAddress('proyectotrabajotfc@gmail.com', 'Nombre Destinatario');
+    $mail->Subject = 'Asunto del correo';
+    $mail->Body    = 'Este es el cuerpo del correo.';
+    $mail->AltBody = 'Este es el cuerpo alternativo del correo.';
+
+    // Enviar correo
+    $mail->send();
+    echo "Correo enviado exitosamente.";
+} catch (Exception $e) {
+    echo "Error al enviar el correo: {$mail->ErrorInfo}";
+}
+
 }
