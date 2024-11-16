@@ -11,10 +11,47 @@
     .ok{
         border-color:green
     }
+
+    .bordeDiv{
+/*        border-style: solid;*/
+    }
+
+
+    #divchatbox {
+        width: 100%;
+        height: 395px;
+        border: 0px solid #ccc;
+
+        overflow-y: scroll;
+        margin: 10px auto;
+        background-color:beige;
+
+
+
+    }
+    #divchatbox p {
+        margin: 5px;
+    }
+
+
+    .divMensajeria{
+        border: 2px solid #d5ebb9;
+        padding: 10px;
+        border-radius: 25px;
+        margin-top: 2px;
+    }
+
+    .horaMensaje{
+        font-size: 12px;
+    }
+
+    .letraChat{
+        margin-left: 5px;
+        font-weight: 500;
+    }
+
 </style>
 
-<script src="js/articulo.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
 
 <!--Carrusel-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -23,7 +60,18 @@
 <!--Fin Carrusell-->
 
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
+
+<script src="js/articulo.js" type="text/javascript"></script>
+<script src="js/chat.js" type="text/javascript"></script>
+<script src="js/comun.js" type="text/javascript"></script>
+
+
+
+
 <form name="formArticulo" id="formArticulo" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
+
 
 
     <div class="col-md-12 bg-warning text-center text-danger mb-3" id="mensajeValidacion">          
@@ -55,12 +103,6 @@
     </div>
 
 
-    <!--        <div class="input-group mt-2">    
-            <span class="input-group-text"><i class="fas fa-list"></i></span>                                    
-            <a href="" class="btn btn-warning" name="btnpublicar" id="btnpublicar">Publicar Anuncio</a>
-        </div>-->
-
-
     <input type="hidden" id="requiredfoto" name="requiredfoto" value="<?= $requiredfoto ?>">
 
     <div class="col-md-12 mt-2" style="display:<?= $activarCompra ?>">       
@@ -75,23 +117,48 @@
         </div>
     </div>   
 
-    <div class="d-flex justify-content-left col-md-10"> 
-
-        <div id="carouselExampleControls" class="carousel slide mt-2 w-100 " data-ride="carousel">    
-            <div class="carousel-inner">
-                <?= $htmlImagenes ?>
+    <div class="bordeDiv"> 
+        <div class="row d-flex justify-content-start bordeDiv" >
+            <!--            <div class="col-sm-6 col-md-12 col-lg-6">-->
+            <div class="col-sm-12 col-md-6 col-lg-6">    
+                <div id="carouselExampleControls" class="carousel slide mt-2 bordeDiv w-100" data-ride="carousel">    
+                    <div class="carousel-inner">
+                        <?= $htmlImagenes ?>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+                </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Siguiente</span>
-            </a>
-        </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div id="chatArticulo" class="bordeDiv mt-2 w-100" style="display:<?= $chatVisible ?>">
+                    <!--            <h4>Usuario Henry</h4>-->
 
+                    <div id="divchatbox">
+                        <!-- Aquí aparecerán los mensajes -->
+                    </div>
+                    <div class="input-group mt-1">  
+
+                        <input type="text" id="txtchat" style="height: 38px;margin-top: 8px; "  name="txtchat"  <?= $requiereChat ?>
+                               placeholder="Escribe tu mensaje..." class="form-control">
+
+                        <span class="input-group-text" style="margin-top:8px ;height:38px;margin-left: 0px"> <i class="fas fa-comment" ></i></span>   
+                        <input type="submit" class="btn btn-warning mt-2"  
+                               name="btnChat" id="btnChat" value="Mensaje"> 
+
+                    </div>
+
+                </div> 
+            </div>
+
+        </div> 
     </div>    
+
 
 
     <div class="col-md-12 mt-2">

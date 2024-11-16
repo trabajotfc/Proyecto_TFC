@@ -13,7 +13,7 @@
     }
 </style>
 
-<script src="js/articulo.js" type="text/javascript"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
 
 <!--Carrusel-->
@@ -31,9 +31,10 @@
             @foreach($ListadoMisAriticulo as $campo)       
 
 
-            <div class="col-sm">
+            <div class="col-sm-6 col-md-6 col-lg-4">
 
-                <div class="table-responsive-sm">
+                <div class="">
+
                     <table  class="table  table-bordered  table-hover col-12 w-100" id="tabla_{{$campo->idArticulo}}">
                         <thead>
                         </thead>
@@ -45,7 +46,7 @@
 
                                         <div id="carouselExampleControls_{{$campo->idArticulo}}" class="carousel slide mt-2 w-100 " data-ride="carousel">    
                                             <div class="carousel-inner">
- 
+
                                                 <?php echo "{{$ArrayImagenes[$campo->idArticulo][0]}}"; ?>
 
                                             </div>
@@ -68,21 +69,28 @@
                             </tr>   
 
                             <tr>  <td class="text-center">{{$campo->Titulo}}</td>                   </tr>   
-                            <tr>  <td>{{$campo->Precio}}</td></tr>             
+                            <tr>  <td class="text-center">Precio:{{$campo->Precio}} (€)</td></tr>             
 <!--                            <tr><td>{{$campo->Fecha}}</td></tr>-->
 
                             <tr>
                                 <td class="text-center">          
-                                    <form name="formDetalle" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
+                                    <form name="formCesta" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
+                                        
+                                        <input type="submit" class="btn btn-outline-warning" name="btnCesta" id="btnCesta" value="Añadir a la cesta">                                                                              
                                         <input type="submit" class="btn btn-outline-success" name="btnActualizar" id="btnActualizar" value="Comprar">                      
                                         <input type="hidden" id="txtIdArticulo" name="txtIdArticulo" value="{{$campo->idArticulo}}">
                                         <input type="hidden" id="txtComprar" name="txtComprar" value="{{$campo->idArticulo}}">
+                                        
                                     </form>
+
+
                                 </td>
+                                
                             </tr>
 
                         </tbody>
                     </table>
+
                 </div>
 
             </div>
