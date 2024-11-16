@@ -8,22 +8,16 @@ function botones() {
 
 
 function validacionesFotosModificar(e) {
-
-
     const cantidadImagenes = $('#images').get(0).files.length;
 
     if (cantidadImagenes == 0) {
-
         //    validaExtensionImg();
-
         mensaje = 'seleccione las imagenes del artículo a publicar'
         $('#mensajeValidacion').text(mensaje);
         e.preventDefault();
         return false;
     }
-
     return false;
-
 }
 
 function validaciones()
@@ -47,7 +41,7 @@ function validaciones()
             mensaje = 'seleccione las imagenes del artículo a publicar'
             $('#mensajeValidacion').text(mensaje);
             return false;
-        }  
+        }
     }
 
 
@@ -76,8 +70,6 @@ function validaciones()
         return false;
     }
 
-
-//
 //    const estado = $('#estado').val().trim();
 //    if (estado == '') {
 //        $('#estado').addClass('error');
@@ -99,14 +91,12 @@ function validaciones()
 
 }
 
-
 // CHECK FILE EXTENSION
 function validar_extension(file) {
     var file_name = file.name,
             file_extension = file_name.split('.').pop();
     return valid_extensions.includes(file_extension);
 }
-
 
 var valid_extensions = ['jpg', 'jpeg', 'png', 'gif'];
 
@@ -153,11 +143,188 @@ $(document).ready(function () {
 
 
 
+//$(document).ready(function () {
+//    $("#btnpublicar").submit(validaForm);
+//});
+//
+//function validaForm(e) {
+//            e.preventDefault();
+//            e.stopImmediatePropagation();
+//            const form = e.target;
+//            $.ajax({
+//                type: "POST",
+//                url: 'articulo.php',
+//                data: $(this).serialize(),
+//                context: form,
+//                //  dataType: 'JSON',
+//                success: function (response)
+//                {
+//                    alert(response.mensaje);
+//                },
+//                error: function (xhr, ajaxOptions, thrownError) {
+//                    alert('henry  Error Message: ' + thrownError);
+//                }
+//            });
+//}
+
+
+
+
+
+
+//$(document).ready(function () {
+//    $("#formArticulo").submit(function (e) {
+//        //  $("#formArticulo").submit(function (e) {
+//        e.preventDefault();
+//        e.stopImmediatePropagation();
+//        const form = e.target;
+//        $.ajax({
+//            type: "POST",
+//            url: 'articulo.php',
+//            data: $(this).serialize(),
+//            context: form,
+//            //  dataType: 'JSON',
+//            success: function (response)
+//            {
+//                alert(response.mensaje);
+//            },
+//            error: function (xhr, ajaxOptions, thrownError) {
+//                alert('henry  Error Message: ' + thrownError);
+//            }
+//        });
+//
+//    });
+//
+//});
+
+
+
+
+
+
+
+//function PublicarInformacion(){
+//   ///ajax con boton eventi click
+//$(document).ready(function () { 
+//        $("#btnpublicar").click(function (e) {
+//
+//       /// validaciones();
+//
+//        e.preventDefault();
+//        e.stopImmediatePropagation();
+//        const form = e.target;
+//
+//        var valorchat = "";
+//
+//        $.ajax({
+//            type: "POST",
+//            url: 'articulo.php?action10=btnpublicar',
+//            data: {
+//                valorchat: valorchat
+//            },
+//            context: form,
+//            //dataType: 'JSON',
+//            success: function (response)
+//            {
+//                //alert(response.MensajeAlert);
+//            },
+//            error: function (xhr, ajaxOptions, thrownError) {
+//                alert('henry  Error Message: ' + thrownError);
+//            }
+//        });
+//
+//    });
+//
+//
+//});
+//
+//
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////ajax con boton eventi click
+//$(document).ready(function () {
+//
+//
+//
+//
+//    $("#btnModificarFoto").click(function (e) {
+//
+//        e.preventDefault();
+//        e.stopImmediatePropagation();
+//        const form = e.target;
+//
+//        var valorchat = "";
+//
+//        $.ajax({
+//            type: "POST",
+//            url: 'articulo.php?action11=btnModificarFoto',
+//            data: {
+//                valorchat: valorchat
+//            },
+//            context: form,
+//            //dataType: 'JSON',
+//            success: function (response)
+//            {
+//                //alert(response.MensajeAlert);
+//            },
+//            error: function (xhr, ajaxOptions, thrownError) {
+//                alert('henry  Error Message: ' + thrownError);
+//            }
+//        });
+//
+//    });
+//
+//
+//
+//
+//
+//
+//
+//});
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //function Postback(){
 //     location.href = 'articulo.php';     
 //}
 
- 
+
 
 
 

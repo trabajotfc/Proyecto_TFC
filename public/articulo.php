@@ -9,6 +9,7 @@ use App\BD;
 use App\clsArticulo;
 use App\clsConsultas;
 use App\clsAnuncio;
+use App\clsChat;
 
 $views = __DIR__ . '/../views';
 $cache = __DIR__ . '/../cache';
@@ -24,6 +25,7 @@ $bd = BD::getConexion();
 $Articulo = new clsArticulo($bd);
 $consultas = new clsConsultas($bd);
 $Anuncio = new clsAnuncio($bd);
+$objChat = new clsChat($bd);
 
 $idArticulo = "0";
 
@@ -41,9 +43,11 @@ $requiredfoto = "true";
 $ParametroListarEstadoArticulo = "0";
 $ParametroListarCategoria = "0";
 $ParametroListarTipoVenta = "0";
-$comprar="";
-$compraDeshabilitar="false";
+$comprar = "";
+$compraDeshabilitar = "false";
 $ListarArticulo = $consultas->BuscarArticulo($_SESSION['idArticulo']);
+
+$requiereChat = "";
 
 foreach ($ListarArticulo as $clave => $valor) {
     try {
@@ -66,6 +70,7 @@ foreach ($ListarArticulo as $clave => $valor) {
 
 
 if (!empty($_POST)) {//INICIO  AJAX    
+//if ($_SERVER['REQUEST_METHOD'] == 'POST') {//INICIO  AJAX    
 //    if (isset($_POST['btnSubirFotos'])) {
 //        $mensaje = "";
 //        $mensaje = "SUBIR FOTOS";
@@ -74,6 +79,8 @@ if (!empty($_POST)) {//INICIO  AJAX
 //        echo json_encode($response);
 //        die;
 //    }
+//    
+    //if (isset($_GET['action10']) == "btnpublicar") {
     if (isset($_POST['btnpublicar'])) {
 
 // AJAX
@@ -137,19 +144,23 @@ if (!empty($_POST)) {//INICIO  AJAX
         $modificarfotos = "auto"; //tiene fotos grabadas, se visible habilita el boton modificar fotos
         $requiredfoto = "false";
 
-        
-                $comprar = $_SESSION['Comprar'];
+        $chatVisible = "";
+        $comprar = $_SESSION['Comprar'];
         $activarCompra = "";
+        $requiereChat = "";
         if ($comprar != null) {
             $activarCompra = "none";    //hay compra
-              $compraDeshabilitar=" disabled='true' ";
+            $compraDeshabilitar = " disabled='true' ";
+            $chatVisible = "auto";
+            $requiereChat = "required='true'";
         } else {
             $activarCompra = "auto";    //no hay compra
-            $compraDeshabilitar=" ";
+            $compraDeshabilitar = " ";
+            $chatVisible = "none";
         }
 
-        
-        
+
+
         echo $blade->run('articulo',
                 compact('titulo', 'descripcion', 'precio',
                         'estado', 'ubicacion',
@@ -157,13 +168,13 @@ if (!empty($_POST)) {//INICIO  AJAX
                         'ListarCategoria', 'ListarTipoVenta', 'mensajeValidacion',
                         'ParametroListarEstadoArticulo',
                         'ParametroListarCategoria', 'ParametroListarTipoVenta',
-                        'modificarfotos', 'requiredfoto','activarCompra','compraDeshabilitar')
+                        'modificarfotos', 'requiredfoto', 'activarCompra', 'compraDeshabilitar', 'chatVisible', 'requiereChat')
         );
 
         die;
     }
 
-
+    //if (isset($_GET['action11']) == "btnModificarFoto") {
     if (isset($_POST['btnModificarFoto'])) {
 
         $idArticulo = $_SESSION['idArticulo'];
@@ -192,26 +203,146 @@ if (!empty($_POST)) {//INICIO  AJAX
 
         $comprar = $_SESSION['Comprar'];
         $activarCompra = "";
+        $chatVisible = "";
+        $requiereChat = "";
         if ($comprar != null) {
             $activarCompra = "none";    //hay compra
-            $compraDeshabilitar=" disabled='true' ";
+            $compraDeshabilitar = " disabled='true' ";
+            $chatVisible = "auto";
+            $requiereChat = "required='true'";
         } else {
             $activarCompra = "auto";    //no hay compra
-            $compraDeshabilitar="  ";
+            $compraDeshabilitar = "  ";
+            $chatVisible = "none";
         }
 
 
 
         echo $blade->run('articulo',
-        compact('titulo', 'descripcion', 'precio',
-        'estado', 'ubicacion',
-        'htmlImagenes', 'ListarEstadoArticulo',
-        'ListarCategoria', 'ListarTipoVenta', 'mensajeValidacion',
-        'ParametroListarEstadoArticulo',
-        'ParametroListarCategoria',
-        'ParametroListarTipoVenta',
-        'modificarfotos', 'requiredfoto', 'activarCompra','compraDeshabilitar'));
-        
+                compact('titulo', 'descripcion', 'precio',
+                        'estado', 'ubicacion',
+                        'htmlImagenes', 'ListarEstadoArticulo',
+                        'ListarCategoria', 'ListarTipoVenta', 'mensajeValidacion',
+                        'ParametroListarEstadoArticulo',
+                        'ParametroListarCategoria',
+                        'ParametroListarTipoVenta',
+                        'modificarfotos', 'requiredfoto', 'activarCompra', 'compraDeshabilitar', 'chatVisible', 'requiereChat'));
+        die;
+    }
+
+
+    if (isset($_GET['action1']) == "btnChat") {
+        $idUsuarioCompra = 2;
+
+        $readFichero = "";
+        // mensaje en el chat       
+        $txtMensaje = htmlspecialchars($_POST['valorchat']);
+
+        $idUsuarioPropietarioArticulo = "";
+        $idUsuarioPropietarioArticulo = $consultas->BuscarUsuarioPropietarioArticulo($_SESSION["idArticulo"]);
+
+        foreach ($idUsuarioPropietarioArticulo as $clave => $valor) {
+            $idUsuarioPropietarioArticulo = $valor->idUsuario;
+        }
+
+        // ***estructura del nombre del fichero chat**
+        //idUsuario comprador  _
+        //idUsuario propietario  _
+        //idArticulo                  _
+        // ***estructura del nombre del fichero chat**
+
+        $nombreFichero = $idUsuarioCompra
+                . "_" . $idUsuarioPropietarioArticulo
+                . "_" . $_SESSION["idArticulo"] . ".txt";
+
+        $ficheroRuta = "log/" . $nombreFichero;
+
+        //si no existe el fichero lo crea      
+        if (!file_exists($ficheroRuta)) {
+            ///crea el fichero
+            $chatAritculo = $objChat->borraChatUsuarioCompraventa($idUsuarioCompra, $idUsuarioPropietarioArticulo, $_SESSION["idArticulo"]);
+            $chatAritculo = $objChat->GragaChatUsuarioCompraventa($idUsuarioCompra, $idUsuarioPropietarioArticulo, $_SESSION["idArticulo"]);
+            $ficheroActual = fopen($ficheroRuta, 'w');
+        }
+
+        $logFile = $ficheroRuta;
+
+        //$time = date('H:i:s');
+        //$data = "<p><strong>$time:</strong> $txtMensaje</p>\n";
+        $time = date('H:i');
+        $data = "<div class='divMensajeria'>"
+                . "<label class='horaMensaje'>Henry $time:</label>"
+                . "<label class='letraChat'>$txtMensaje</label>"
+                . "</div>"
+                . "\n";
+
+        //escribe sobre el fichero
+        file_put_contents($logFile, $data, FILE_APPEND);
+
+        //si el fichero existe, lee el contenido 
+        if (file_exists($logFile)) {
+            $readFichero = file_get_contents($logFile);
+        } else {
+            $readFichero = "<p>No hay mensajes aún.</p>";
+        }
+
+        //ajax
+        $MensajeAlert = $readFichero;
+        $response = compact('MensajeAlert');
+        header('Content-type: application/json');
+        echo json_encode($response);
+        die;
+    }
+
+
+    if (isset($_GET['action2']) == "btnRefrescar") {
+        $idUsuarioCompra = 2;
+
+        $MensajeAlert = "";
+        $readFichero = "";
+        $bexisteFichero = true;
+
+        $idUsuarioPropietarioArticulo = "";
+        $idUsuarioPropietarioArticulo = $consultas->BuscarUsuarioPropietarioArticulo($_SESSION["idArticulo"]);
+
+        foreach ($idUsuarioPropietarioArticulo as $clave => $valor) {
+            $idUsuarioPropietarioArticulo = $valor->idUsuario;
+        }
+
+        // ***estructura del nombre del fichero chat**
+        //idUsuario comprador  _
+        //idUsuario propietario  _
+        //idArticulo                  _
+        // ***estructura del nombre del fichero chat**
+
+        $nombreFichero = $idUsuarioCompra
+                . "_" . $idUsuarioPropietarioArticulo
+                . "_" . $_SESSION["idArticulo"] . ".txt";
+
+        $ficheroRuta = "log/" . $nombreFichero;
+
+        //si no existe el fichero lo crea      
+        if (!file_exists($ficheroRuta)) {
+            ///crea el fichero
+            $bexisteFichero = false;
+        }
+
+        if ($bexisteFichero) {
+            //si el fichero existe, lee el contenido 
+            if (file_exists($ficheroRuta)) {
+                $readFichero = file_get_contents($ficheroRuta);
+            } else {
+                $readFichero = "<p> No hay mensajes aún.</p>";
+            }
+            $MensajeAlert = $readFichero;
+        }
+
+
+        //ajax
+
+        $response = compact('MensajeAlert');
+        header('Content-type: application/json');
+        echo json_encode($response);
         die;
     }
 } else {
@@ -229,14 +360,18 @@ if (!empty($_POST)) {//INICIO  AJAX
 
     $comprar = $_SESSION['Comprar'];
     $activarCompra = "";
+    $chatVisible = "";
+    $requiereChat = "";
     if ($comprar != null) {
         $activarCompra = "none";    // hay compra ocultamos los botones de modificacion
-         $compraDeshabilitar=" disabled='true' ";
+        $compraDeshabilitar = " disabled='true' ";
+        $chatVisible = "auto";
+        $requiereChat = "required='true'";
     } else {
         $activarCompra = "auto";    // visble botones de modificacion
-        $compraDeshabilitar="  ";
+        $compraDeshabilitar = "  ";
+        $chatVisible = "none";
     }
-
 
     echo $blade->run('articulo',
             compact('titulo', 'descripcion', 'precio',
@@ -246,7 +381,7 @@ if (!empty($_POST)) {//INICIO  AJAX
                     'ParametroListarEstadoArticulo',
                     'ParametroListarCategoria',
                     'ParametroListarTipoVenta',
-                    'modificarfotos', 'requiredfoto', 'activarCompra','compraDeshabilitar'));
+                    'modificarfotos', 'requiredfoto', 'activarCompra', 'compraDeshabilitar', 'chatVisible', 'requiereChat'));
     die;
 }
 

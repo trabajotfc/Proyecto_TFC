@@ -1,8 +1,11 @@
 <?php
 
+
+
 session_start();
 
 require "../vendor/autoload.php";
+ 
 
 use eftec\bladeone\BladeOne;
 use App\BD;
@@ -58,13 +61,15 @@ if (!empty($_POST)) {
 
     $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
 
+    $ArrayImagenes[]="";
+    
     foreach ($ListadoMisAriticulo as $clave => $valor) {
         $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
     }
 
-
-
-    $prueba = $ArrayImagenes[2][0];
+    
+   // $prueba =isset($ArrayImagenes[2][0]);
+     //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
 
     echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
 
