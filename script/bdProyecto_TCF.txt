@@ -101,6 +101,11 @@ create table  tbchatCompraVenta(
 	idArticulo int         
   );
 
+create table  tbCestaCompra(
+    idUsuarioComprador int not null,    
+	idArticulo int         
+  );
+
 INSERT INTO tbperfil (Descripcion) VALUES ('Normal');
 INSERT INTO tbperfil (Descripcion) VALUES ('Super Usuario');
 

@@ -41,32 +41,35 @@
                 <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulos" id="btnVerArticulos" value="Ver mis Publicaciones">
             </div>            
 
-            <div class="input-group mt-2">    
-                <span class="input-group-text" style="margin-top:8px ;height:40px">
-                      <i class="fas fa-truck"></i>
-                </span>   
-                <input type="submit" class="btn btn-warning mt-2" name="btnCesta" id="btnCesta" value="Ver mi cesta">
-            </div>     
-            
+
         </div>
-        
-        
-        
+
+
+
     </fieldset>
-    
+
 
     <fieldset >
         <legend style="border-width: 2px;margin-top: 15px">Compras listado de artículos</legend>
-        
-        <div class="d-flex justify-content-left col-md-6 mt-2">                         
+
+<!--        <div class="d-flex justify-content-left col-md-6 mt-2">                         -->
             <div class="input-group mt-2">    
                 <span class="input-group-text" style="margin-top:8px ;height:40px">
                     <i class="fas fa-eye"></i>
                 </span>   
                 <input type="submit" class="btn btn-warning mt-2" name="btnVerArticulosCompra" id="btnVerArticulosCompra" value="Ver Artículos">
-            </div>                        
-        </div>
-        
+            </div>         
+
+            <div class="input-group mt-2">    
+                <span class="input-group-text" style="margin-top:8px ;height:40px">
+                    <i class="fas fa-truck"></i>
+                </span>   
+                <input type="submit" class="btn btn-warning mt-2" name="btnCesta" id="btnCesta" value="Ver mi cesta">
+            </div>     
+
+
+<!--        </div>-->
+
     </fieldset>
 
 

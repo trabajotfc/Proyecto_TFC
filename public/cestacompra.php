@@ -55,29 +55,14 @@ if (!empty($_POST)) {
     }
     
     
-       if (isset($_POST['btnCesta'])) {      
-                                            //LOAD  
-                          $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
-                          $ArrayImagenes[] = "";
-                          foreach ($ListadoMisAriticulo as $clave => $valor) {
-                              $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
-                          }
-
-                          $objCesta->BorraArticuloCesta($_SESSION['idUsuario'],$_SESSION['idArticulo']);
-                           $objCesta->GrabarCestaCompra($_SESSION['idUsuario'],$_SESSION['idArticulo']);
-                          
-                          // $prueba =isset($ArrayImagenes[2][0]);
-                          //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-                          echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
-                          die;             
-                             }
+ 
        
        
     
 } else {
 
     //LOAD  
-    $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
+    $ListadoMisAriticulo = $objCesta->ListadoArticuloCesta($_SESSION['idUsuario']);
     $ArrayImagenes[] = "";
     foreach ($ListadoMisAriticulo as $clave => $valor) {
         $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
@@ -85,7 +70,7 @@ if (!empty($_POST)) {
 
     // $prueba =isset($ArrayImagenes[2][0]);
     //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-    echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+    echo $blade->run('cestacompra', compact('ListadoMisAriticulo', 'ArrayImagenes'));
     die;
     
 }

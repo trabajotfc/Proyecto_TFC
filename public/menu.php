@@ -73,6 +73,10 @@ if (!empty($_POST)) {//INICIO  AJAX
           header('Location:listadoarticulos.php');
     }
     
+         if (isset($_POST['btnCesta'])) {  
+          header('Location:cestacompra.php');
+    }
+    
     
     
     
