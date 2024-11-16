@@ -95,7 +95,11 @@ create table  tbCompraArticulo(
         constraint fk_ArticuloCompra foreign key(idArticulo) references tbArticulo(idArticulo) on update cascade on delete cascade 
   );
 
-
+create table  tbchatCompraVenta(
+    idUsuarioComprador int not null,
+    idUsuarioVendedor int not null,
+	idArticulo int         
+  );
 
 INSERT INTO tbperfil (Descripcion) VALUES ('Normal');
 INSERT INTO tbperfil (Descripcion) VALUES ('Super Usuario');
