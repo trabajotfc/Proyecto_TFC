@@ -26,16 +26,13 @@ $Articulo = new clsArticulo($bd);
 $consultas = new clsConsultas($bd);
 $Anuncio = new clsAnuncio($bd);
 
+$ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
 
-$ListadoMisAriticulo= $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
-
- 
 if (!empty($_POST)) {
 
-    $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
-    
-    
-       $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);
+    if (isset($_POST['btnActualizar'])) {
+        $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
+        $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);
 
         if ($tieneAnuncio == false) {
 
@@ -43,22 +40,34 @@ if (!empty($_POST)) {
             foreach ($NuevoCodigoAnuncio as $clave => $valor) {
                 $_SESSION['idAnuncio'] = $valor;
             }
-            
         } else {
 
             foreach ($tieneAnuncio as $clave => $valor) {
                 $_SESSION['idAnuncio'] = $valor;
             }
-            
         }
 
         header('Location:articulo.php');
-       
-       
+    }
+
+
+    if (isset($_POST['btnChat'])) {
+
+        $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
+        $_SESSION['Comprar'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
+
+    
+            $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);   
+                foreach ($tieneAnuncio as $clave => $valor) {
+                    $_SESSION['idAnuncio'] = $valor;
+                }
+          
+            header('Location:articulo.php');
+ 
+    }
 } else {
     //LOAD  
 
     echo $blade->run('misarticulos', compact('ListadoMisAriticulo'));
     die;
-    
 }

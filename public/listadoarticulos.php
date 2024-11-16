@@ -1,11 +1,8 @@
 <?php
 
-
-
 session_start();
 
 require "../vendor/autoload.php";
- 
 
 use eftec\bladeone\BladeOne;
 use App\BD;
@@ -34,46 +31,57 @@ $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario'])
 if (!empty($_POST)) {
 
     $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
-
     $_SESSION['Comprar'] = trim(filter_input(INPUT_POST, 'txtComprar'));
-    
-    
-    
-    $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);
 
-    if ($tieneAnuncio == false) {
+    if (isset($_POST['btnActualizar'])) {       
+        $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);
 
-        $NuevoCodigoAnuncio = $Anuncio->NuevoCodigoAnuncio();
-        foreach ($NuevoCodigoAnuncio as $clave => $valor) {
-            $_SESSION['idAnuncio'] = $valor;
+        if ($tieneAnuncio == false) {
+            $NuevoCodigoAnuncio = $Anuncio->NuevoCodigoAnuncio();
+            foreach ($NuevoCodigoAnuncio as $clave => $valor) {
+                $_SESSION['idAnuncio'] = $valor;
+            }
+        } else {
+
+            foreach ($tieneAnuncio as $clave => $valor) {
+                $_SESSION['idAnuncio'] = $valor;
+            }
         }
-    } else {
 
-        foreach ($tieneAnuncio as $clave => $valor) {
-            $_SESSION['idAnuncio'] = $valor;
-        }
+        header('Location:articulo.php');
     }
+    
+    
+       if (isset($_POST['btnCesta'])) {      
+                                            //LOAD  
+                          $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
+                          $ArrayImagenes[] = "";
+                          foreach ($ListadoMisAriticulo as $clave => $valor) {
+                              $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
+                          }
 
-    header('Location:articulo.php');
+                          // $prueba =isset($ArrayImagenes[2][0]);
+                          //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
+                          echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+                          die;             
+                             }
+       
+       
+    
 } else {
 
     //LOAD  
-
     $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
-
-    $ArrayImagenes[]="";
-    
+    $ArrayImagenes[] = "";
     foreach ($ListadoMisAriticulo as $clave => $valor) {
         $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
     }
 
-    
-   // $prueba =isset($ArrayImagenes[2][0]);
-     //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-
+    // $prueba =isset($ArrayImagenes[2][0]);
+    //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
     echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
-
     die;
+    
 }
 
 function MostrarImagenes($idArticulo) {
