@@ -63,7 +63,20 @@ class clsConsultas {
         
     }
     
-    
+        function BuscarUsuarioPropietarioArticulo($idArticulo) {
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+        
+        $sql = " SELECT idUsuario from tbAnuncio where  " 
+                . " idAnuncio=(Select idAnuncio from tbAnuncioArticulo WHERE idArticulo = :idArticulo) ";                
+        
+        $sth = $this->bd->prepare($sql);
+        $sth->execute([':idArticulo' => $idArticulo]);
+        $BuscarArticulo = $sth->fetchAll(PDO::FETCH_OBJ);
+        $sth = null;
+
+        return $BuscarArticulo;
+        
+    }
    
      
 
