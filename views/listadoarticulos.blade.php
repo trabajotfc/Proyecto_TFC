@@ -27,6 +27,14 @@
 
     <div class="container">
         <div class="row">
+            <div class="col-md-12 mt-2">
+                <label for="buscar" class="form-label">Buscar artículo</label>
+                <input type="text" class="form-control"  value="" id="txtbuscar"  placeholder="¿Que quieres comprar?" name="txtbuscar">
+            </div>  
+        </div>
+        
+        
+        <div class="row mt-2">
 
             @foreach($ListadoMisAriticulo as $campo)       
 
@@ -75,17 +83,16 @@
                             <tr>
                                 <td class="text-center">          
                                     <form name="formCesta" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
-                                        
-                                        <input type="submit" class="btn btn-outline-warning" name="btnCesta" id="btnCesta" value="Añadir a la cesta">                                                                              
-                                        <input type="submit" class="btn btn-outline-success" name="btnActualizar" id="btnActualizar" value="Comprar">                      
+                                        <input type="submit" class="btn btn-outline-success" name="btnActualizar" id="btnActualizar" value="Comprar">   
+                                        <input type="submit" class="btn btn-outline-warning" name="btnCesta" id="btnCesta" value="Añadir a la cesta">                                                                                                                                         
                                         <input type="hidden" id="txtIdArticulo" name="txtIdArticulo" value="{{$campo->idArticulo}}">
                                         <input type="hidden" id="txtComprar" name="txtComprar" value="{{$campo->idArticulo}}">
-                                        
+
                                     </form>
 
 
                                 </td>
-                                
+
                             </tr>
 
                         </tbody>

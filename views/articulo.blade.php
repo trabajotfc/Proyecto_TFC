@@ -19,7 +19,7 @@
 
     #divchatbox {
         width: 100%;
-        height: 395px;
+        height: 398px;
         border: 0px solid #ccc;
 
         overflow-y: scroll;
@@ -50,6 +50,11 @@
         font-weight: 500;
     }
 
+    .bordes{
+        border: 2px solid #d5ebb9;                
+        border-radius: 25px;        
+    }
+    
 </style>
 
 
@@ -65,7 +70,6 @@
 
 <script src="js/articulo.js" type="text/javascript"></script>
 <script src="js/chat.js" type="text/javascript"></script>
-<script src="js/comun.js" type="text/javascript"></script>
 
 
 
@@ -139,7 +143,7 @@
                 <div id="chatArticulo" class="bordeDiv mt-2 w-100" style="display:<?= $chatVisible ?>">
                     <!--            <h4>Usuario Henry</h4>-->
 
-                    <div id="divchatbox">
+                    <div id="divchatbox" class="bordes">
                         <!-- Aquí aparecerán los mensajes -->
                     </div>
                     <div class="input-group mt-1">  

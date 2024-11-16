@@ -11,6 +11,11 @@
     .ok{
         border-color:green
     }
+
+    .letra{
+        font-size: small;
+    }
+
 </style>
 
 
@@ -25,30 +30,38 @@
 
 <form name="formMisPublicaciones" id="formArticulo" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
 
-    <div class="table-responsive-md">
-        <table  class="table  table-bordered  table-hover col-12 w-100">
+    <div class="table-responsive-sm">
+        <table  class="table  table-bordered  table-hover col-12 w-100 letra">
             <thead>
                 <tr class="text-center bg-warning">
                     <th scope="col">Título</th>                                            
-                    <th scope="col">Precio</th>
-                    <th scope="col">Fecha Pubicación</th>            
+<!--                    <th scope="col">Precio</th>-->
+                    <th scope="col">Fecha publicación</th>            
                     <th scope="col">Modificar Anuncio</th>                 
+                    <th scope="col">Mensajes</th> 
                 </tr>
             </thead>
             <tbody>       
 
                 @foreach($ListadoMisAriticulo as $campo)                                                                             
-                <tr>            
+                <tr class="align-middle">            
                     <td class="text-center">{{$campo->Titulo}}</td>                    
-                    <td>{{$campo->Precio}}</td>
+<!--                    <td>{{$campo->Precio}}</td>-->
                     <td>{{$campo->Fecha}}</td>
                     <td class="text-center">          
-                        
+
                         <form name="formDetalle" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
-                            <input type="submit" class="btn btn-outline-success" name="btnActualizar" id="btnActualizar" value="Actualizar Anuncio">                      
+                            <input type="submit" class="btn btn-outline-success letra" name="btnActualizar" id="btnActualizar" value="Actualizar Anuncio">                      
                             <input type="hidden" id="txtIdArticulo" name="txtIdArticulo" value="{{$campo->idArticulo}}">
                         </form>
-                        
+
+                    </td>
+                    <td class="text-center">       
+                        <form name="formDetalle" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
+                            <input type="hidden" id="txtIdArticulo" name="txtIdArticulo" value="{{$campo->idArticulo}}">
+                            <input type="submit" class="btn btn-outline-secondary letra" name="btnChat" id="btnChat" value="mensaje">         
+                        </form>
+
                     </td>
                 <tr>                                      
                     @endforeach    
