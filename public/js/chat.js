@@ -61,7 +61,6 @@ $(document).ready(function () {
 $(document).ready(function () {
         $('#chatArticulo').on('mouseover', function(event) {
           refreshChat(event);
-//         alert("hola");
        });
 });
 
