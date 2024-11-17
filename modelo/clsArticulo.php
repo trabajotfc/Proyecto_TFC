@@ -132,5 +132,47 @@ class clsArticulo {
         
     }
     
+ 
     
+    
+        function ListadoDeArticulos() {
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+                $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
+		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo ";
+        $sth = $this->bd->prepare($sql);
+        $sth->execute();        
+        $ListarEstadoArticulo = $sth->fetchAll(PDO::FETCH_OBJ);
+
+        return $ListarEstadoArticulo;
+    }
+ 
+    
+           function ListadoDeAritculosBusqueda($Titulo) {
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+        
+        $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
+		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
+                                  WHERE Titulo LIKE '%".strip_tags($Titulo)."%'   ";
+        
+        
+//                $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
+//		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
+//                                WHERE Titulo=:Titulo  ";
+//        
+//        $sth = $this->bd->prepare($sql);
+//        $sth->execute([':Titulo' => $Titulo]);
+//        $Listado = $sth->fetchAll(PDO::FETCH_OBJ);
+//        $sth = null;
+//
+//        return $Listado;
+        
+        $sth = $this->bd->prepare($sql);
+        $sth->execute();        
+        $ListarEstadoArticulo = $sth->fetchAll(PDO::FETCH_OBJ);
+
+        return $ListarEstadoArticulo;
+        
+        
+        
+    }
 }

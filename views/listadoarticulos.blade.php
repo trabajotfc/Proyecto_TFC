@@ -23,17 +23,40 @@
 <!--Fin Carrusell-->
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"   
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous">
+</script>
+
+<script src="js/buscarAutocomplete.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/styles.css">
+
 <form name="formMisPublicaciones" id="formArticulo" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
 
     <div class="container">
+        <!--        <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <label for="buscar" class="form-label">Buscar artículo</label>
+                        <input type="text" class="form-control"  value="" id="txtbuscar"  placeholder="¿Que quieres comprar?" name="txtbuscar">
+                    </div>  
+                </div>-->
+
         <div class="row">
-            <div class="col-md-12 mt-2">
-                <label for="buscar" class="form-label">Buscar artículo</label>
-                <input type="text" class="form-control"  value="" id="txtbuscar"  placeholder="¿Que quieres comprar?" name="txtbuscar">
-            </div>  
+            <div id="content" class="col-lg-12">
+                <form class="form-inline" method="post" action="#">
+                    <div class="input-group input-group-sm">
+                        <input class="search_query form-control" type="text" name="key" id="key" placeholder="Buscar articulo...">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-flat" name="btnBuscar" id="btnBuscar"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <div id="suggestions"></div>
+            </div>
         </div>
-        
-        
+
         <div class="row mt-2">
 
             @foreach($ListadoMisAriticulo as $campo)       
@@ -69,9 +92,6 @@
                                         </div>
 
                                     </div>    
-
-
-
 
                                 </td>               
                             </tr>   

@@ -28,7 +28,6 @@ $consultas = new clsConsultas($bd);
 $Anuncio = new clsAnuncio($bd);
 $objCesta = new clsCestaCompra($bd);
 
-
 $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
 
 if (!empty($_POST)) {
@@ -36,7 +35,7 @@ if (!empty($_POST)) {
     $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
     $_SESSION['Comprar'] = trim(filter_input(INPUT_POST, 'txtComprar'));
 
-    if (isset($_POST['btnActualizar'])) {       
+    if (isset($_POST['btnActualizar'])) {
         $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);
 
         if ($tieneAnuncio == false) {
@@ -53,31 +52,49 @@ if (!empty($_POST)) {
 
         header('Location:articulo.php');
     }
-    
-    
-       if (isset($_POST['btnCesta'])) {      
-                                            //LOAD  
-                          $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
-                          $ArrayImagenes[] = "";
-                          foreach ($ListadoMisAriticulo as $clave => $valor) {
-                              $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
-                          }
 
-                          $objCesta->BorraArticuloCesta($_SESSION['idUsuario'],$_SESSION['idArticulo']);
-                           $objCesta->GrabarCestaCompra($_SESSION['idUsuario'],$_SESSION['idArticulo']);
-                          
-                          // $prueba =isset($ArrayImagenes[2][0]);
-                          //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-                          echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
-                          die;             
-                             }
-       
-       
+
+    if (isset($_POST['btnCesta'])) {
+        //LOAD  
+        $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
+        $ArrayImagenes[] = "";
+        foreach ($ListadoMisAriticulo as $clave => $valor) {
+            $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
+        }
+
+        $objCesta->BorraArticuloCesta($_SESSION['idUsuario'], $_SESSION['idArticulo']);
+        $objCesta->GrabarCestaCompra($_SESSION['idUsuario'], $_SESSION['idArticulo']);
+
+        // $prueba =isset($ArrayImagenes[2][0]);
+        //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
+        echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+        die;
+    }
+
+
+
+
+    if (isset($_POST['btnBuscar'])) {
+        
+        $txtBuscar=$_POST['key'];
+        $ListadoMisAriticulo = $Articulo->ListadoDeAritculosBusqueda($txtBuscar);
+        $ArrayImagenes[] = "";
+        foreach ($ListadoMisAriticulo as $clave => $valor) {
+            $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
+        }
+
+        // $prueba =isset($ArrayImagenes[2][0]);
+        //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
+        echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+        die;
+    }
+    
+    
     
 } else {
 
     //LOAD  
-    $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
+    $ListadoMisAriticulo = $Articulo->ListadoDeArticulos();
     $ArrayImagenes[] = "";
     foreach ($ListadoMisAriticulo as $clave => $valor) {
         $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
@@ -87,7 +104,6 @@ if (!empty($_POST)) {
     //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
     echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
     die;
-    
 }
 
 function MostrarImagenes($idArticulo) {

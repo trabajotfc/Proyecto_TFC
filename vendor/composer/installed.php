@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'ivan/dwes05_proyecto',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'name' => 'tfc/proyecto_tfc',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '15c414415fdb7720e4a95599f3c585b2473212b1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -19,10 +19,19 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'ivan/dwes05_proyecto' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.9.2',
+            'version' => '6.9.2.0',
+            'reference' => 'a7b17b42fa4887c92146243f3d2f4ccb962af17c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'tfc/proyecto_tfc' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '15c414415fdb7720e4a95599f3c585b2473212b1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

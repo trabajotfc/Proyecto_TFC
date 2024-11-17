@@ -71,6 +71,7 @@
 <script src="js/articulo.js" type="text/javascript"></script>
 <script src="js/chat.js" type="text/javascript"></script>
 
+     <script src="js/comun.js" type="text/javascript"></script>
 
 
 
@@ -101,6 +102,7 @@
             <div class="input-group mt-1">    
                 <span class="input-group-text" style="margin-top:8px ;height:38px"> <i class="fas fa-list" ></i></span>   
                 <input type="submit" class="btn btn-warning mt-2" name="btnpublicar" id="btnpublicar" value="Publicar Anuncio">
+                
             </div>
         </div>
 

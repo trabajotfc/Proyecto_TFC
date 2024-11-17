@@ -3,7 +3,8 @@
     "description": "TFC",
     "type": "project",
     "require": {
-        "eftec/bladeone": "4.8"
+        "eftec/bladeone": "4.8",
+        "phpmailer/phpmailer": "^6.9"
     },
     "autoload": {
         "psr-4": {
