@@ -28,6 +28,10 @@
 <!--Fin Carrusell-->
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
+ <script src="js/misarticulos.js" type="text/javascript"></script>
+
+
 <form name="formMisPublicaciones" id="formArticulo" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
 
     <div class="table-responsive-sm">
@@ -36,9 +40,10 @@
                 <tr class="text-center bg-warning">
                     <th scope="col">Título</th>                                            
 <!--                    <th scope="col">Precio</th>-->
-                    <th scope="col">Fecha publicación</th>            
-                    <th scope="col">Modificar Anuncio</th>                 
-                    <th scope="col">Mensajes</th> 
+                    <th scope="col">Fecha</th>            
+                    <th scope="col">Modificar</th>                 
+                    <th scope="col">Mensaje</th> 
+                    <th scope="col">Estado publicación</th> 
                 </tr>
             </thead>
             <tbody>       
@@ -59,9 +64,20 @@
                     <td class="text-center">       
                         <form name="formDetalle" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
                             <input type="hidden" id="txtIdArticulo" name="txtIdArticulo" value="{{$campo->idArticulo}}">
-                            <input type="submit" class="btn btn-outline-secondary letra" name="btnChat" id="btnChat" value="mensaje">         
+                            <input type="submit" class="btn btn-outline-secondary letra" name="btnChat" id="btnChat" value="Chat">         
                         </form>
 
+                    </td>
+                    <td>
+                        <select id="estado" class="form-control" name="estado">        
+                            @foreach($ListarEstadoArticulo as $campoEstado)     
+                            <?php if ("{$campo->idEstadoPublicacion}" == "{$campoEstado->idEstadoPublicacion}"): ?>            
+                                <option value="{{$campo->idArticulo}}_{{$campo->idEstadoPublicacion}} " selected="true">{{$campoEstado->Descripcion}}</option>          
+                            <?php else: ?>                                                                 
+                                <option value="{{$campo->idArticulo}}_{{$campoEstado->idEstadoPublicacion}}"> {{$campoEstado->Descripcion}}</option>          
+                            <?php endif ?>                                
+                            @endforeach       
+                        </select>
                     </td>
                 <tr>                                      
                     @endforeach    

@@ -28,6 +28,11 @@ $Anuncio = new clsAnuncio($bd);
 
 $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
 
+$ListarEstadoArticulo = $consultas->ListarEstadoPublicacion();
+
+ 
+    
+   
 if (!empty($_POST)) {
 
     if (isset($_POST['btnActualizar'])) {
@@ -51,6 +56,7 @@ if (!empty($_POST)) {
     }
 
 
+    
     if (isset($_POST['btnChat'])) {
 
         $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
@@ -65,9 +71,30 @@ if (!empty($_POST)) {
             header('Location:articulo.php');
  
     }
+    
+       if (isset($_GET['action']) == "btnActualizarEstado") {
+          
+           $idArticulo=explode("_",$_POST['IdEstado'])[0];
+           $idEstado= explode("_",$_POST['IdEstado'])[1];
+           
+           $Articulo->ModificarEstadoArticulo($idArticulo,$idEstado);                      
+        
+        //ajax
+        $MensajeAlert = "hola";
+        $response = compact('MensajeAlert');
+        header('Content-type: application/json');
+        echo json_encode($response);
+        die;
+        
+       }
+    
+    
+    
+    
+    
 } else {
     //LOAD  
-
-    echo $blade->run('misarticulos', compact('ListadoMisAriticulo'));
+     
+    echo $blade->run('misarticulos', compact('ListadoMisAriticulo','ListarEstadoArticulo'));
     die;
 }

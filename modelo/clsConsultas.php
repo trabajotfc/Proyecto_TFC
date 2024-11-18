@@ -52,7 +52,7 @@ class clsConsultas {
         
         $sql = " SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`, "
                 . " `idCategoria`, `idEstado`, `Ubicacion`"
-                . "  FROM `tbarticulo`  WHERE idEstadoPublicacion=1 AND  idArticulo = :idArticulo ";
+                . "  FROM `tbarticulo`  WHERE   idArticulo = :idArticulo ";
         
         $sth = $this->bd->prepare($sql);
         $sth->execute([':idArticulo' => $idArticulo]);
@@ -78,6 +78,19 @@ class clsConsultas {
         
     }
    
-     
+         function ListarEstadoPublicacion() {
+
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+
+        $sql = " SELECT idEstadoPublicacion, Descripcion FROM tbEstadoPublicacion   ";
+        $sth = $this->bd->prepare($sql);
+        $sth->execute();
+        //$sth->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, clsArticulo::class);
+        $Listado = $sth->fetchAll(PDO::FETCH_OBJ);
+
+        return $Listado;
+    }
+    
+    
 
 }

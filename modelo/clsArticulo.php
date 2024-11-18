@@ -100,6 +100,34 @@ class clsArticulo {
         return $Mensa;
     }
 
+    
+        function ModificarEstadoArticulo($idArticulo,$estado) {
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+        $Mensa = "";
+        try {
+
+            $SQL_Insert = " UPDATE  tbArticulo SET idEstadoPublicacion=:estado  WHERE idArticulo=:idArticulo; ";
+
+            $Insert = $this->bd->prepare($SQL_Insert);
+
+            $Insert->execute([':idArticulo' => $idArticulo,':estado' => $estado]);
+
+            $Insert = null;
+
+            $Mensa = "Anuncio Modificado correctamente";
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        return $Mensa;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     function NuevoCodigoArticulo() {
         $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
         $sql = " SELECT COUNT(*)+1 'idArticulo' FROM tbarticulo; ";
@@ -118,8 +146,8 @@ class clsArticulo {
         $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
         
         $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
-		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
-                                WHERE idEstadoPublicacion=1 AND  IDARTICULO IN (SELECT idArticulo 
+		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`, idEstadoPublicacion   FROM tbarticulo 
+                                WHERE   IDARTICULO IN (SELECT idArticulo 
                      	FROM tbanuncioarticulo WHERE idAnuncio
                      IN (SELECT IDANUNCIO FROM tbanuncio WHERE IDUSUARIO=:IDUSUARIO)) ";
         
