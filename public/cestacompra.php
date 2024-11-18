@@ -98,7 +98,7 @@ function MostrarImagenes($idArticulo) {
     while ($fila = $resultado->fetch_assoc()) {
         $active_class = $primero ? 'active' : '';
         $htmlImagenes = $htmlImagenes . '<div style="transition:inherit" class="carousel-item ' . $active_class . '"  id="' . $fila['descripcion'] . '">
-                                   <img src="../Fotos/' . $fila['descripcion'] . '"
+                                   <img src="Fotos/' . $fila['descripcion'] . '"
                                        class="img-fluid img-thumbnail" alt="Imagen"
                                        style="height: 500px" id="' . $fila['descripcion'] . '">                                  
                                    </div>';
