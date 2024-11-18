@@ -64,7 +64,16 @@
                     <td class="text-center">       
                         <form name="formDetalle" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">        
                             <input type="hidden" id="txtIdArticulo" name="txtIdArticulo" value="{{$campo->idArticulo}}">
-                            <input type="submit" class="btn btn-outline-secondary letra" name="btnChat" id="btnChat" value="Chat">         
+                            
+                          
+                           @foreach($listadoMensajeChat as $campoChat)     
+                            <?php if ("{$campo->idArticulo}" == "{$campoChat->idArticulo}"): ?>            
+                                  <input type="submit" class="btn btn-outline-secondary letra" name="btnChat" id="btnChat" value="Chat" enabled>                                 
+                            <?php else: ?>                                                                 
+                                  <input type="submit" class="btn btn-outline-secondary letra" name="btnChat" id="btnChat" value="Chat" disabled>                                 
+                            <?php endif ?>                                
+                            @endforeach   
+                            
                         </form>
 
                     </td>

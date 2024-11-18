@@ -9,6 +9,7 @@ use App\BD;
 use App\clsArticulo;
 use App\clsConsultas;
 use App\clsAnuncio;
+use App\clsChat;
 
 $views = __DIR__ . '/../views';
 $cache = __DIR__ . '/../cache';
@@ -25,14 +26,14 @@ $bd = BD::getConexion();
 $Articulo = new clsArticulo($bd);
 $consultas = new clsConsultas($bd);
 $Anuncio = new clsAnuncio($bd);
+$objChat = new clsChat($bd);
 
 $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
 
 $ListarEstadoArticulo = $consultas->ListarEstadoPublicacion();
 
- 
-    
-   
+$listadoMensajeChat = $objChat->ListadoUsuarioChatArticulo($_SESSION['idUsuario']);
+
 if (!empty($_POST)) {
 
     if (isset($_POST['btnActualizar'])) {
@@ -56,45 +57,37 @@ if (!empty($_POST)) {
     }
 
 
-    
+
     if (isset($_POST['btnChat'])) {
 
         $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
         $_SESSION['Comprar'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
 
-    
-            $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);   
-                foreach ($tieneAnuncio as $clave => $valor) {
-                    $_SESSION['idAnuncio'] = $valor;
-                }
-          
-            header('Location:articulo.php');
- 
+        $tieneAnuncio = $Anuncio->BuscarAnuncioPorUsuario($_SESSION['idUsuario']);
+        foreach ($tieneAnuncio as $clave => $valor) {
+            $_SESSION['idAnuncio'] = $valor;
+        }
+
+        header('Location:articulo.php');
     }
-    
-       if (isset($_GET['action']) == "btnActualizarEstado") {
-          
-           $idArticulo=explode("_",$_POST['IdEstado'])[0];
-           $idEstado= explode("_",$_POST['IdEstado'])[1];
-           
-           $Articulo->ModificarEstadoArticulo($idArticulo,$idEstado);                      
-        
+
+    if (isset($_GET['action']) == "btnActualizarEstado") {
+
+        $idArticulo = explode("_", $_POST['IdEstado'])[0];
+        $idEstado = explode("_", $_POST['IdEstado'])[1];
+
+        $Articulo->ModificarEstadoArticulo($idArticulo, $idEstado);
+
         //ajax
         $MensajeAlert = "hola";
         $response = compact('MensajeAlert');
         header('Content-type: application/json');
         echo json_encode($response);
         die;
-        
-       }
-    
-    
-    
-    
-    
+    }
 } else {
     //LOAD  
-     
-    echo $blade->run('misarticulos', compact('ListadoMisAriticulo','ListarEstadoArticulo'));
+
+    echo $blade->run('misarticulos', compact('ListadoMisAriticulo', 'ListarEstadoArticulo','listadoMensajeChat'));
     die;
 }

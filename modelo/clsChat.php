@@ -57,5 +57,24 @@ class clsChat {
         }
         return $Mensa;
     }
+    
+    
+        function ListadoUsuarioChatArticulo($idUsuarioVendedor) {
+        $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+        
+        $sql = " SELECT `idUsuarioComprador`, `idUsuarioVendedor`, `idArticulo` FROM `tbchatcompraventa` "
+                . "WHERE idUsuarioVendedor = :idUsuarioVendedor ";
+        
+        $sth = $this->bd->prepare($sql);
+        $sth->execute([':idUsuarioVendedor' => $idUsuarioVendedor]);
+        $BuscarArticulo = $sth->fetchAll(PDO::FETCH_OBJ);
+        $sth = null;
+
+        return $BuscarArticulo;
+        
+    }
+    
+    
+    
 
 }
