@@ -30,6 +30,8 @@ $objCesta = new clsCestaCompra($bd);
 
 $ListadoMisAriticulo = $Articulo->misArticulosPublicados($_SESSION['idUsuario']);
 
+$mensajeValidacion="";
+
 if (!empty($_POST)) {
 
     $_SESSION['idArticulo'] = trim(filter_input(INPUT_POST, 'txtIdArticulo'));
@@ -67,7 +69,7 @@ if (!empty($_POST)) {
 
         // $prueba =isset($ArrayImagenes[2][0]);
         //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-        echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+        echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes','mensajeValidacion'));
         die;
     }
 
@@ -77,15 +79,27 @@ if (!empty($_POST)) {
     if (isset($_POST['btnBuscar'])) {
         
         $txtBuscar=$_POST['key'];
+        $ListadoMisAriticulo="";
         $ListadoMisAriticulo = $Articulo->ListadoDeAritculosBusqueda($txtBuscar);
+        
+        if   (count($ListadoMisAriticulo)==0){
+            $ListadoMisAriticulo = $Articulo->ListadoDeArticulos();
+            $mensajeValidacion="Artículo no encontrado";
+        }
+                
+        
         $ArrayImagenes[] = "";
         foreach ($ListadoMisAriticulo as $clave => $valor) {
             $ArrayImagenes[$valor->idArticulo][] = MostrarImagenes($valor->idArticulo);
         }
-
+  
+      
+        
+        
+        
         // $prueba =isset($ArrayImagenes[2][0]);
         //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-        echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+        echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes','mensajeValidacion'));
         die;
     }
     
@@ -102,7 +116,7 @@ if (!empty($_POST)) {
 
     // $prueba =isset($ArrayImagenes[2][0]);
     //$ArrayImagenes[][] =isset($ArrayImagenes[][]);
-    echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes'));
+    echo $blade->run('listadoarticulos', compact('ListadoMisAriticulo', 'ArrayImagenes','mensajeValidacion'));
     die;
 }
 

@@ -43,6 +43,11 @@
                     </div>  
                 </div>-->
 
+            <div class="col-md-12 bg-warning text-center text-danger mb-3" id="mensajeValidacion">          
+        <?= $mensajeValidacion ?>
+    </div>
+        
+        
         <div class="row">
             <div id="content" class="col-lg-12">
                 <form class="form-inline" method="post" action="#">
