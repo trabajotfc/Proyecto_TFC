@@ -61,7 +61,7 @@ class clsCestaCompra {
         
         $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
 		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
-                                WHERE IDARTICULO 
+                                WHERE idEstadoPublicacion=1 AND  IDARTICULO 
                                 IN (SELECT idArticulo FROM tbcestacompra 
                                         WHERE idUsuarioComprador=:IDUSUARIO ) ";
         

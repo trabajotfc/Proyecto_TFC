@@ -52,7 +52,7 @@ class clsConsultas {
         
         $sql = " SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`, "
                 . " `idCategoria`, `idEstado`, `Ubicacion`"
-                . "  FROM `tbarticulo`  WHERE idArticulo = :idArticulo ";
+                . "  FROM `tbarticulo`  WHERE idEstadoPublicacion=1 AND  idArticulo = :idArticulo ";
         
         $sth = $this->bd->prepare($sql);
         $sth->execute([':idArticulo' => $idArticulo]);

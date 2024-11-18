@@ -18,7 +18,7 @@ class clsArticulo {
         try {
 
             $SQL_Insert = "INSERT INTO `tbArticulo` VALUES (:idArticulo,:Titulo,:Descripcion,:Precio,"
-                    . ":idTipoVenta,:idCategoria,:idEstado,:Ubicacion, concat(date(now()), ' ', time(now())) ); ";
+                    . ":idTipoVenta,:idCategoria,:idEstado,:Ubicacion, concat(date(now()), ' ', time(now())) ,1); ";
 
             $Insert = $this->bd->prepare($SQL_Insert);
 
@@ -119,7 +119,7 @@ class clsArticulo {
         
         $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
 		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
-                                WHERE IDARTICULO IN (SELECT idArticulo 
+                                WHERE idEstadoPublicacion=1 AND  IDARTICULO IN (SELECT idArticulo 
                      	FROM tbanuncioarticulo WHERE idAnuncio
                      IN (SELECT IDANUNCIO FROM tbanuncio WHERE IDUSUARIO=:IDUSUARIO)) ";
         
@@ -138,7 +138,7 @@ class clsArticulo {
         function ListadoDeArticulos() {
         $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
                 $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
-		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo ";
+		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo WHERE idEstadoPublicacion=1  ";
         $sth = $this->bd->prepare($sql);
         $sth->execute();        
         $ListarEstadoArticulo = $sth->fetchAll(PDO::FETCH_OBJ);
@@ -152,7 +152,7 @@ class clsArticulo {
         
         $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
 		`idCategoria`, `idEstado`, `Ubicacion`, `Fecha`   FROM tbarticulo 
-                                  WHERE Titulo LIKE '%".strip_tags($Titulo)."%'   ";
+                                  WHERE idEstadoPublicacion=1 AND  Titulo LIKE '%".strip_tags($Titulo)."%'   ";
         
         
 //                $sql = "  SELECT `idArticulo`, `Titulo`, `Descripcion`, `Precio`, `idTipoVenta`,
