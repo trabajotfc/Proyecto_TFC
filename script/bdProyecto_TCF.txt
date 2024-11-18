@@ -51,6 +51,11 @@ create table  tbTipoVenta(
     Descripcion varchar(600) null
  );
 
+ create table  tbEstadoPublicacion(
+    idEstadoPublicacion int auto_increment primary key not null,
+    Descripcion varchar(600) null
+ );
+
 create table  tbCategoria(
     idCategoria int auto_increment primary key not null,
     Descripcion varchar(600) null
@@ -67,9 +72,11 @@ create table  tbArticulo(
     idEstado int not null,
 	Ubicacion varchar(65535) null,
 	Fecha datetime  null,
+	idEstadoPublicacion int not null,
         constraint fk_ArticuloVenta foreign key(idTipoVenta) references tbTipoVenta(idTipoVenta) on update cascade on delete cascade, 
         constraint fk_Articulo_Categoria foreign key(idCategoria) references tbCategoria(idCategoria) on update cascade on delete cascade ,
-        constraint fk_Articulo_Estado foreign key(idEstado) references tbEstado(idEstado) on update cascade on delete cascade 
+        constraint fk_Articulo_Estado foreign key(idEstado) references tbEstado(idEstado) on update cascade on delete cascade, 
+		constraint fk_Articulo_EstadoPublicacion foreign key(idEstadoPublicacion) references tbEstadoPublicacion(idEstadoPublicacion) on update cascade on delete cascade
   );
 
 create table  tbFotosArticulo(
@@ -126,6 +133,13 @@ INSERT INTO tbestado (Descripcion) VALUES ('En buen estado');
 INSERT INTO tbestado (Descripcion) VALUES ('Aceptable');
 INSERT INTO tbestado (Descripcion) VALUES ('Mejorable');
 INSERT INTO tbestado (Descripcion) VALUES ('Poco uso');
+
+
+INSERT INTO tbEstadoPublicacion (Descripcion) VALUES ('Activa');
+INSERT INTO tbEstadoPublicacion (Descripcion) VALUES ('Dar de baja ya lo vendi');
+INSERT INTO tbEstadoPublicacion (Descripcion) VALUES ('No se vende');
+INSERT INTO tbEstadoPublicacion (Descripcion) VALUES ('Ya no me interesa venderlo');
+INSERT INTO tbEstadoPublicacion (Descripcion) VALUES ('otros');
 
 
 
