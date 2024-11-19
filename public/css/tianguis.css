@@ -1,0 +1,80 @@
+body{
+    background-color: #f8d7da;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.image-header{
+    width: 100%; 
+    height: 500px;
+}
+/* color rosa texto*/
+.pink-text{
+    color: #e6a5ca;
+    font-weight:bold;
+}
+.bg-white {
+    background-color: #ffffff;
+}
+.bt-pink{
+
+    border: 2px solid #e6a5ca;
+}
+.center{
+    text-align: center;
+    vertical-align: middle;
+}
+/* Fondo rosa reutilizable */
+.bg-pink {
+    background-color: #f8d7da; /* Fondo rosa claro */
+}
+
+/* Estilo para las tarjetas transparentes con borde rosa */
+.card-white {
+    background-color: #ffffff; 
+    color: #3a1a1a; /* Texto en color oscuro */
+    text-align: center;
+}
+/* Asegurar que los enlaces dentro de la tarjeta no cambien a azul */
+.card-white a {
+    color: #3a1a1a; /* Color negro para el texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.card-white a:hover {
+    color: #3a1a1a; /* Mantener negro al hacer hover */
+}
+
+/* Personalizar el aspecto del select */
+.custom-select {
+           
+    color: #333; /* Texto oscuro */
+    border: 1px solid #e6a5ca; /* Borde rosa */
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.custom-select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #e6a5ca;
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+
+/* borde redondeado*/
+.extra-rounded {
+    border-radius: 25px; 
+}
+/*diseño links*/
+.custom-link {
+    color: black; /* Color negro del texto */
+    text-decoration: none !important; /* Quita el subrayado predeterminado */
+}
+
+.custom-link:hover {
+    color: #e6a5ca; /* Cambia el color del texto a rosa al pasar el ratón */
+    text-decoration: none !important;
+}
+
