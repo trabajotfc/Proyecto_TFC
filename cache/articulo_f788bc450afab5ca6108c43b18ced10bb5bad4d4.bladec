@@ -8,8 +8,13 @@
  <form name="formArticulo" id="formArticulo" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
  <h2 class="text-center mb-4 pink-text">Describe tu producto</h2>
  
- <div class="col-md-12 bg-warning text-center text-danger mb-3" id="mensajeValidacion">          
- <?= $mensajeValidacion ?></div>
+ <!-- Mensaje de Validación -->
+ <?php if(!empty($mensajeValidacion)): ?>
+ <div class="warning-message col-md-8 mx-auto my-4 p-3 text-center bg-white bt-pink pink-text py-4 extra-rounded">
+ <?= $mensajeValidacion ?>
+ </div>
+ <br>
+ <?php endif; ?>
 
  <!-- Categoría -->
  <div class="mb-3">
