@@ -82,3 +82,8 @@ body{
    text-align: center; /* Centra el texto */
 
 }
+.btn-hover:hover {
+        
+        background-color: #d63384; /* Fondo blanco al pasar el cursor */
+        color: black; /* Texto rosa al pasar el cursor */
+    }
